@@ -1,0 +1,114 @@
+<!-- Inspiration for html and css from youtubers mmtuts and Umair Butt & github users cantugabriela & yongjinjiang -->
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data</title>
+  <style>
+      table{
+        margin: 0 auto;
+        border-collapse: collapse;
+        border: 1px solid #d4d4d4;
+      }
+      tr:nth-child(even){
+        background: #f1f1f1;
+      }
+      th, td{
+        padding: 10px 30px;
+      }
+      th{
+        border-bottom: 1px solid #d4d4d4;
+      }
+  </style>
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <!-- CSS Style Sheet -->
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+</head> 
+
+<body>
+<!-- Navbar -->
+<!-- Navbar code source and then modified: https://getbootstrap.com/docs/4.0/components/navbar/ -->
+  <div class="navigation">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" style="background-color: #0BADA6;" href="index.html">Latitude</a>
+      <button class="navbar-toggler  border border-white" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Plots
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="max_temperature.html">Max Temperature</a>
+              <a class="dropdown-item" href="humidity.html">Humidity</a>
+              <a class="dropdown-item" href="cloudiness.html">Cloudiness</a>
+              <a class="dropdown-item" href="wind_speed.html">Wind Speed</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="comparison.html">Comparison</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="data.html">Data</a>
+          </li>
+
+        </ul>
+      </div>
+    </nav>
+  </div>
+    <!-- Content Section - Data Table -->
+  <script>
+    function opsi(data){
+      var allRows = data.split(/\r?\n|\r/);
+      var table = "<table>";
+      for(var singleRow=0; singleRow<allRows.length; singleRow++){
+        if(singleRow === 0){
+          table += "<thead>";
+          table += "<tr>";
+        } else{
+          table += "</tr>";
+        }
+        var rowCells = allRows[singleRow].split(',');
+        for (var rowSingleCell=0; rowSingleCell<rowCells.length; rowSingleCell++){
+          if(singleRow === 0){
+          table += "<th>";
+          table += [rowSingleCell];
+          table += "<th>";
+        } else{
+          table += "<td>";
+          table += [rowSingleCell];
+          table += "</td>";
+        }
+    }
+    table += "</tbody>";
+    table += "</table>";
+    $("body").append(table);
+    }
+    $.ajax([
+        url:"Resources/weather_data.csv",
+        dataType: "text"
+    ]).done(opsi);
+  </script>
+
+       <!-- Footer Section -->
+  <footer>
+    <div class="footer">&copy; Copyright Shaymus McTeague 2020</div>
+  </footer>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  
+</body>
+
+</html>
